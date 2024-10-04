@@ -8,7 +8,7 @@ public class PrintJobExample {
     public static void main(String[] args) {
         try {
             // Find the printer by name
-            PrintService printerService = findPrintService("Printer");
+            PrintService printerService = findPrintService("OLIVETTI PRT80");
 
             if (printerService == null) {
                 System.out.println("Printer not found");

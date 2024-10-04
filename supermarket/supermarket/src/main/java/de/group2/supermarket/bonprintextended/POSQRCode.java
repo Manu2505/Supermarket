@@ -1,13 +1,13 @@
-package de.mathisneunzig.bonprintextended;
+package de.group2.supermarket.bonprintextended;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.mathisneunzig.bonprint.POS;
-import de.mathisneunzig.bonprintextended.POS.ErrorCorrection;
-import de.mathisneunzig.bonprintextended.POS.QrCodeSize;
+import de.group2.supermarket.bonprintextended.POS.ErrorCorrection;
+import de.group2.supermarket.bonprintextended.POS.QrCodeSize;
+
 
 public class POSQRCode implements POSComponent {
     private final String data;
