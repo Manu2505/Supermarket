@@ -1,4 +1,4 @@
-package de.mathisneunzig.bonprintextended;
+package de.group2.supermarket.bonprintextended;
 
 public class POS {
     public static class Command {
