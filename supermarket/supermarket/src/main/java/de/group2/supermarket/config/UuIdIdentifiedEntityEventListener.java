@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
 
-public class UuidIdentifiedEntityEventListener extends AbstractMongoEventListener<UuidIdentifiedEntity> {
+public class UuIdIdentifiedEntityEventListener extends AbstractMongoEventListener<UuidIdentifiedEntity> {
     
     @Override
     public void onBeforeConvert(BeforeConvertEvent<UuidIdentifiedEntity> event) {
