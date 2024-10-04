@@ -1,4 +1,4 @@
-package de.mathisneunzig.bonprintextended;
+package de.group2.supermarket.bonprintextended;
 
 import java.io.ByteArrayInputStream;
 import javax.print.Doc;
