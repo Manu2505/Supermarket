@@ -21,7 +21,7 @@ import de.group2.supermarket.repo.PrinterRepository;
 
 @Controller
 @RestController
-@RequestMapping("/addresses")
+@RequestMapping("/printer")
 public class PrinterController {
 	
 	@Autowired
@@ -41,11 +41,12 @@ public class PrinterController {
         }
     }
 
-    @PostMapping("")
+    /*@PostMapping("")
     public ResponseEntity<Object> add(@RequestBody Printer printer){
         return new ResponseEntity<Object>(printerRepository.save(printer), HttpStatus.CREATED); // Recap: 201 means "Created"
     }
-
+    */
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable UUID id){
         try{
