@@ -14,7 +14,7 @@ import com.mongodb.client.MongoClients;
 //change path to repository
 
 @Configuration
-@EnableMongoRepositories(basePackages = "de.group2.supermarket.fm.repo", repositoryBaseClass = CustomMongoRepositoryImpl.class)
+@EnableMongoRepositories(basePackages = "de.group2.supermarket.repo", repositoryBaseClass = CustomMongoRepositoryImpl.class)
 public class SimpleMongoConfig {
  
     @Bean
