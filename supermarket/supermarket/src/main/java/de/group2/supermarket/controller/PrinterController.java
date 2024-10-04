@@ -27,33 +27,43 @@ public class PrinterController {
 	@Autowired
 	private PrinterRepository printerRepository;
 
-    @GetMapping("")
+    @GetMapping("") // localhost:8080/printer
     public ResponseEntity<Object> getAll(){
         return new ResponseEntity<Object>(printerRepository.findAll(), HttpStatus.OK); // Recap: 200 means "OK"
     }
 
-    @GetMapping("{id}")
+    @GetMapping("{id}") // localhost:8080/printer/"some id"
     public ResponseEntity<Object> getById(@PathVariable UUID id){
         try {
             return new ResponseEntity<Object>(printerRepository.findById(id).get(), HttpStatus.OK);
         } catch (NoSuchElementException e){
-            return new ResponseEntity<Object>("Address with the id " + id + " could not be found", HttpStatus.NOT_FOUND); // Recap: 404 means "Not found"
+            return new ResponseEntity<Object>("Printer with the id " + id + " could not be found", HttpStatus.NOT_FOUND); // Recap: 404 means "Not found"
         }
     }
+
+    @GetMapping("/type/{type}") // localhost:8080/printer/name/"some name"
+    public ResponseEntity<Object> getByName(@PathVariable String type){
+        try {
+            return new ResponseEntity<Object>(printerRepository.findAllByType(type).get(), HttpStatus.OK);
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<Object>("Building with name " + type + " could not be found", HttpStatus.NOT_FOUND); 
+        }
+    }
+
 
     /*@PostMapping("")
     public ResponseEntity<Object> add(@RequestBody Printer printer){
         return new ResponseEntity<Object>(printerRepository.save(printer), HttpStatus.CREATED); // Recap: 201 means "Created"
     }
     */
-    
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable UUID id){
         try{
         	printerRepository.delete(printerRepository.findById(id).get());
-            return new ResponseEntity<Object>("Address with id " + id + " deleted", HttpStatus.OK);
+            return new ResponseEntity<Object>("Printer with id " + id + " deleted", HttpStatus.OK);
         }catch (NoSuchElementException e){
-            return new ResponseEntity<Object>("Address with id " + id + " could not be found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Object>("Printer with id " + id + " could not be found", HttpStatus.NOT_FOUND);
         }
     }
 

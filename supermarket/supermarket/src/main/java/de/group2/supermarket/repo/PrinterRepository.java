@@ -8,6 +8,6 @@ import de.group2.supermarket.entity.Printer;
 
 public interface PrinterRepository extends CustomMongoRepository<Printer> {
 
-    List<Optional<Printer>> findAllByType(String type);
+    Optional<List<Printer>> findAllByType(String type);
     
 }
