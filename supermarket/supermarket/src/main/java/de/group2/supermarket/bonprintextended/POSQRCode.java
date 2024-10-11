@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.group2.supermarket.bonprintextended.POS;
 import de.group2.supermarket.bonprintextended.POS.ErrorCorrection;
 import de.group2.supermarket.bonprintextended.POS.QrCodeSize;
 
