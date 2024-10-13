@@ -46,6 +46,17 @@ public class ItemController {
         }
     }
 
+
+    /*
+    @GetMapping("/name/{name}") // localhost:8080/item/name/"some name"
+    public ResponseEntity<Object> getByName(@PathVariable String name){
+        try {
+            return new ResponseEntity<Object>(itemRepository.findAllByName(name).get(), HttpStatus.OK);
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<Object>("Items with name " + name + " could not be found", HttpStatus.NOT_FOUND); 
+        }
+    }   
+    
     @GetMapping("/type/{type}") // localhost:8080/item/name/"some name"
     public ResponseEntity<Object> getByName(@PathVariable String category){
         try {
@@ -54,7 +65,7 @@ public class ItemController {
             return new ResponseEntity<Object>("Items with name " + category + " could not be found", HttpStatus.NOT_FOUND); 
         }
     }
-
+    */
 
 
     @DeleteMapping("/{id}") // localhost:8080/item/"some id"
