@@ -19,7 +19,7 @@ public class SimpleMongoConfig {
  
     @Bean
     public MongoClient mongo() {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://kattaumanuel:2dIRqDXtezv0Vs9U@supermarketcluster.qgl7r.mongodb.net/?retryWrites=true&w=majority&appName=SupermarketCluster");
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://kattaumanuel:<db_password>@supermarketcluster.qgl7r.mongodb.net/?retryWrites=true&w=majority&appName=SupermarketCluster");
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
           .uuidRepresentation(UuidRepresentation.STANDARD)
           .applyConnectionString(connectionString)
