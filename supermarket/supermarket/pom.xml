@@ -54,32 +54,6 @@
 			<artifactId>mongodb-driver-sync</artifactId>
 			<version>5.2.0</version>
 		</dependency>
-		<!-- Spring Boot Starter -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
-
-		<!-- Spring Boot Configuration Processor -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<version>3.3.4</version>
-		</dependency>
-
-		<!-- Spring Cloud Dependencies -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter</artifactId>
-			<version>2.1.1.RELEASE</version>
-		</dependency>
-
-
-		<dependency>
-			<groupId>org.appsweaver.starter.oss-commons.spring</groupId>
-			<artifactId>oss-commons-spring-mongo</artifactId>
-			<version>1.4.0</version>
-		</dependency>
 	</dependencies>
 
 	<build>
