@@ -6,6 +6,7 @@ services:                                            # Defines the services to b
     environment:                                     # Values of environment variables are defined on this part of the config.
       - MONGO_INITDB_ROOT_USERNAME=admin             # The admin and password env variables must be followed otherwise mongo won't work properly.
       - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=simpleDB
     volumes:
       - mongo-data:/data/db                          # We define a docker volume in here to house the data persistence for our mongodatabase. And then we bind the volume to the service.
   mongo-express:                                     
