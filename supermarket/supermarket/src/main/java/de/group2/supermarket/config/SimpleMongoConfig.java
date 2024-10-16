@@ -1,4 +1,4 @@
-package de.group2.supermarket.config;
+/*package de.group2.supermarket.config;
 
 import org.bson.UuidRepresentation;
 import org.springframework.context.annotation.Bean;
@@ -33,4 +33,4 @@ public class SimpleMongoConfig {
         return new MongoTemplate(mongo(), "SupermarketCluster");
     }
     
-}
+}*/
