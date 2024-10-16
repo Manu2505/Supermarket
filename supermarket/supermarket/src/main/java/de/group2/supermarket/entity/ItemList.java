@@ -3,31 +3,38 @@ package de.group2.supermarket.entity;
 import java.util.List;
 import de.group2.supermarket.config.UuidIdentifiedEntity;
 
-public class ItemList extends UuidIdentifiedEntity{
+public class ItemList extends UuidIdentifiedEntity {
 
-    private List<Item> items;
+    private List<ItemPosition> itemPositions;
     private double totalPrice;
 
-    public ItemList(List<Item> items, double totalPrice) {
-        this.items = items;
+    public ItemList(List<ItemPosition> itemPositions, double totalPrice) {
+        this.itemPositions = itemPositions;
         this.totalPrice = totalPrice;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public List<ItemPosition> getItemPositions() {
+        return itemPositions;
     }
-    public void additem(Item item) {
-        this.items.add(item);
+
+    public void additem(ItemPosition itemPosition) {
+        this.itemPositions.add(itemPosition);
     }
-    public void removeItem(Item item) {
-        this.items.remove(item);
+
+    public void removeItem(ItemPosition itemPosition) {
+        this.itemPositions.remove(itemPosition);
     }
 
     public double getTotalPrice() {
         return totalPrice;
     }
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+
+    public void addToTotalPrice(double totalPrice, ItemPosition itemPosition) {
+        this.totalPrice += (itemPosition.getItem().getPrice() * itemPosition.getAmount());
     }
-    
+
+    public void removeFromTotalPrice(double totalPrice, ItemPosition itemPosition) {
+        this.totalPrice -= (itemPosition.getItem().getPrice() * itemPosition.getAmount());
+    }
+
 }

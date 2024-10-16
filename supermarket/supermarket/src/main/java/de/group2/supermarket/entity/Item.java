@@ -7,14 +7,12 @@ public class Item extends UuidIdentifiedEntity{
     private String name;
     private String category;
     private double price;
-    private int amount;
 
     
-    public Item(String name, String category, double price, int amount) {
+    public Item(String name, String category, double price) {
         this.name = name;
         this.category = category;
         this.price = price;
-        this.amount = amount;
     }
     
     public String getName() {
@@ -40,12 +38,4 @@ public class Item extends UuidIdentifiedEntity{
     public void setPrice(double price) {
         this.price = price;
     }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    } 
 }
