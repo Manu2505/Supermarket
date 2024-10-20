@@ -1,4 +1,4 @@
-/*package de.group2.supermarket.config;
+package de.group2.supermarket.config;
 
 import org.bson.UuidRepresentation;
 import org.springframework.context.annotation.Bean;
@@ -16,10 +16,10 @@ import com.mongodb.client.MongoClients;
 @Configuration
 @EnableMongoRepositories(basePackages = "de.group2.supermarket.repo", repositoryBaseClass = CustomMongoRepositoryImpl.class)
 public class SimpleMongoConfig {
- 
+
     @Bean
     public MongoClient mongo() {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://kattaumanuel:2dIRqDXtezv0Vs9U@supermarketcluster.qgl7r.mongodb.net/?retryWrites=true&w=majority&appName=SupermarketCluster");
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://kattaumanuel:2dIRqDXtezv0Vs9U@supermarketcluster.qgl7r.mongodb.net/?retryWrites=true&w=majority");
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
           .uuidRepresentation(UuidRepresentation.STANDARD)
           .applyConnectionString(connectionString)
@@ -30,7 +30,7 @@ public class SimpleMongoConfig {
 
     @Bean
     public MongoTemplate mongoTemplate() throws Exception {
-        return new MongoTemplate(mongo(), "SupermarketCluster");
+        return new MongoTemplate(mongo(), "supermarket");
     }
     
-}*/
+}
