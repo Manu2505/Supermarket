@@ -19,7 +19,7 @@ public class SimpleMongoConfig {
 
     @Bean
     public MongoClient mongo() {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://kattaumanuel:2dIRqDXtezv0Vs9U@supermarketcluster.qgl7r.mongodb.net/?retryWrites=true&w=majority");
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://admin:admin@supermarketcluster.qgl7r.mongodb.net/?retryWrites=true&w=majority");
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
           .uuidRepresentation(UuidRepresentation.STANDARD)
           .applyConnectionString(connectionString)
@@ -30,7 +30,7 @@ public class SimpleMongoConfig {
 
     @Bean
     public MongoTemplate mongoTemplate() throws Exception {
-        return new MongoTemplate(mongo(), "supermarket");
+        return new MongoTemplate(mongo(), "SuperMarket");
     }
     
 }
