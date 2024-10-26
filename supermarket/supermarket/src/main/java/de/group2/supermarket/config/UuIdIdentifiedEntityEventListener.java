@@ -1,21 +1,14 @@
 package de.group2.supermarket.config;
 
 import java.util.UUID;
+import javax.persistence.PrePersist;
 
-import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
-import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
+public class UuIdIdentifiedEntityEventListener {
 
-public class UuIdIdentifiedEntityEventListener extends AbstractMongoEventListener<UuidIdentifiedEntity> {
-    
-    @Override
-    public void onBeforeConvert(BeforeConvertEvent<UuidIdentifiedEntity> event) {
-        
-        super.onBeforeConvert(event);
-        UuidIdentifiedEntity entity = event.getSource();
-        
-        if(entity.getId() == null) {
+    @PrePersist
+    public void setUuid(UuidIdentifiedEntity entity) {
+        if (entity.getId() == null) {
             entity.setId(UUID.randomUUID());
-        } 
+        }
     }
-    
 }
