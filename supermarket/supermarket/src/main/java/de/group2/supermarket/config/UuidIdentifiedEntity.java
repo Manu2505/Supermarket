@@ -1,25 +1,23 @@
 package de.group2.supermarket.config;
 
 import java.util.UUID;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.MappedSuperclass;
 
-import org.springframework.data.annotation.Id;
-
+@MappedSuperclass
 public abstract class UuidIdentifiedEntity {
 
-    @Id   
-    protected UUID id;    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
-    public void setId(UUID id) {
-
-        if (this.id != null) {
-            throw new UnsupportedOperationException("ID is already defined");
-        }
-
-        this.id = id;
+    public UUID getId() {
+        return id;
     }
 
-	public UUID getId() {
-		return id;
-	}
-    
+    public void setId(UUID id) {
+        this.id = id;
+    }
 }

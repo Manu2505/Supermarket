@@ -1,14 +1,20 @@
 package de.group2.supermarket.entity;
 
 import de.group2.supermarket.config.UuidIdentifiedEntity;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-public class Printer extends UuidIdentifiedEntity{
+@Entity
+@Table(name = "printer")
+public class Printer extends UuidIdentifiedEntity {
 
     private String type;
-
     private String name;
-
     private int nrOfDesk;
+
+    // Default constructor required by JPA
+    public Printer() {
+    }
 
     public Printer(String type, String name, int nrOfDesk) {
         this.type = type;
@@ -39,5 +45,4 @@ public class Printer extends UuidIdentifiedEntity{
     public void setNrOfDesk(int nrOfDesk) {
         this.nrOfDesk = nrOfDesk;
     }
-    
 }
