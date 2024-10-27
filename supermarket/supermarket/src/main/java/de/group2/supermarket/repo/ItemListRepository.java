@@ -8,7 +8,5 @@ import de.group2.supermarket.entity.ItemList;
 public interface ItemListRepository extends CustomMongorepository<ItemList> {
 
     
-    //Optional<List<Item>> findAllByName(String name);
-
-    // Optional<List<Item>> findAllByCategory(String category);
+    Optional<List<ItemList>> findByName(String name);
 }

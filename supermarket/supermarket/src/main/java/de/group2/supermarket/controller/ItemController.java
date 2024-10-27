@@ -68,6 +68,8 @@ public class ItemController {
         }
     }
 
+
+    //keine Ahnung ob das so richtig ist mit dem Update
     @PutMapping("/{id}") // localhost:8080/item/"some id"
     public ResponseEntity<Object> updateById(@PathVariable UUID id) {
         try {

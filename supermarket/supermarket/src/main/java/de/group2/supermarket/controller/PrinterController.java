@@ -10,8 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import de.group2.supermarket.entity.Printer;
 import de.group2.supermarket.repo.PrinterRepository;
 
 
@@ -22,6 +26,12 @@ public class PrinterController {
 	
 	@Autowired
 	private PrinterRepository printerRepository;
+    
+    
+        @PostMapping("")
+        public ResponseEntity<Object> add(@RequestBody Printer printer){
+            return new ResponseEntity<Object>(printerRepository.save(printer), HttpStatus.CREATED); // Recap: 201 means "Created"
+        }
 
     @GetMapping("") // localhost:8080/printer
     public ResponseEntity<Object> getAll(){
@@ -37,7 +47,7 @@ public class PrinterController {
         }
     }
 
-    @GetMapping("/type/{type}") // localhost:8080/printer/name/"some name"
+    @GetMapping("/type/{type}") // localhost:8080/printer/type/"some type"
     public ResponseEntity<Object> getByName(@PathVariable String type){
         try {
             return new ResponseEntity<Object>(printerRepository.findAllByType(type).get(), HttpStatus.OK);
@@ -46,12 +56,7 @@ public class PrinterController {
         }
     }
 
-
-    /*@PostMapping("")
-    public ResponseEntity<Object> add(@RequestBody Printer printer){
-        return new ResponseEntity<Object>(printerRepository.save(printer), HttpStatus.CREATED); // Recap: 201 means "Created"
-    }
-    */
+    
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable UUID id){

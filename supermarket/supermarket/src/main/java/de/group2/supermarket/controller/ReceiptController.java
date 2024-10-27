@@ -66,16 +66,4 @@ public class ReceiptController {
         }
     }
 
-    // delete mapping for whole categories??
-
-    /*@DeleteMapping("/category/{category}") // localhost:8080/Receipt/category/"some category"
-    public ResponseEntity<Object> delete(@PathVariable String category){
-        try{
-        	receiptRepository.delete(receiptRepository.findAllByCategory(category).get());
-            return new ResponseEntity<Object>("Receipt with category " + category + " deleted", HttpStatus.OK);
-        }catch (NoSuchElementException e){
-            return new ResponseEntity<Object>("Receipt with category " + category + " could not be found", HttpStatus.NOT_FOUND);
-        }
-    }
-    */
 }
