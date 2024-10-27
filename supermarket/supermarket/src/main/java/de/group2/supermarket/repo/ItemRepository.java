@@ -10,5 +10,5 @@ public interface ItemRepository extends CustomMongorepository<Item> {
     
     Optional<List<Item>> findByName(String name);
     Optional<List<Item>> findAllByCategory(String category);
-    Optional<List<Item>> deleteByName(String name);
+    //Optional<List<Item>> deleteByName(String name);
 }

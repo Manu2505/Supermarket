@@ -89,13 +89,4 @@ public class ItemController {
         }
     }
 
-    @DeleteMapping("/name/{name}") // localhost:8080/item/name/"some name"
-    public ResponseEntity<Object> deleteByName(@PathVariable String name){
-        try{
-        	itemRepository.deleteByName(itemRepository.findByName(name).get());
-            return new ResponseEntity<Object>("Item with name " + name + " deleted", HttpStatus.OK);
-        }catch (NoSuchElementException e){
-            return new ResponseEntity<Object>("Item with name " + name + " could not be found", HttpStatus.NOT_FOUND);
-        }
-    }
 }
