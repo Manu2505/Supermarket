@@ -7,7 +7,7 @@ import de.group2.supermarket.entity.ItemList;
 
 public interface ItemListRepository extends CustomJpaRepository<ItemList> {
 
-    // Optional<List<Item>> findAllByName(String name);
+    Optional<List<ItemList>> findByName(String name);
 
     // Optional<List<Item>> findAllByCategory(String category);
 }
