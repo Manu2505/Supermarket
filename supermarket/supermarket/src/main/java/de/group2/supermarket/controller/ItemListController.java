@@ -46,15 +46,7 @@ public class ItemListController {
             return new ResponseEntity<Object>("ItemList with the id " + id + " could not be found", HttpStatus.NOT_FOUND); // Recap: 404 means "Not found"
         }
     }
-
-    @GetMapping("/name/{name}") // localhost:8080/itemList/name/"some name"
-    public ResponseEntity<Object> getByName(@PathVariable String name){
-        try {
-            return new ResponseEntity<Object>(itemListRepository.findByName(name).get(), HttpStatus.OK);
-        } catch (NoSuchElementException e){
-            return new ResponseEntity<Object>("ItemLists with name " + name + " could not be found", HttpStatus.NOT_FOUND); 
-        }
-    }   
+ 
     
     //auch da keine Ahnung ob das für Update passt
     @PutMapping("/{id}") // localhost:8080/itemList/"some id"
