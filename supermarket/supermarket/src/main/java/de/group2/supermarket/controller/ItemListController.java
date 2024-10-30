@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
-import de.group2.supermarket.entity.Item;
 import de.group2.supermarket.entity.ItemList;
+import de.group2.supermarket.entity.item.Item;
 import de.group2.supermarket.repo.ItemListRepository;
 
 @Controller

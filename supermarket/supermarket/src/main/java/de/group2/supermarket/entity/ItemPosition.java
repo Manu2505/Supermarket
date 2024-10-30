@@ -1,5 +1,7 @@
 package de.group2.supermarket.entity;
 
+import de.group2.supermarket.entity.item.Item;
+
 public class ItemPosition {
     
     private Item item;
