@@ -7,13 +7,13 @@ public class Receipt extends UuidIdentifiedEntity{
     private String date;
     private String time;
     private String cashier;
-    private double total;
+    private ItemList itemList;
     
-        public Receipt(String date, String time, String cashier, double total) {
+        public Receipt(String date, String time, String cashier, ItemList itemList) {
             this.date = date;
             this.time = time;
             this.cashier = cashier;
-            this.total = total;
+            this.itemList = itemList;
         }
 
     public String getDate() {
@@ -40,11 +40,11 @@ public class Receipt extends UuidIdentifiedEntity{
         this.cashier = cashier;
     }
 
-    public double getTotal() {
-        return total;
+    public ItemList getItemList() {
+        return itemList;
     }
 
-    public void setTotal(double total) {
-        this.total = total;
+    public void setItemList(ItemList itemList) {
+        this.itemList = itemList;
     } 
 }
