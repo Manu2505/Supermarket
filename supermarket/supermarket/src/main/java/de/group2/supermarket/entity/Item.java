@@ -2,40 +2,26 @@ package de.group2.supermarket.entity;
 
 import de.group2.supermarket.config.UuidIdentifiedEntity;
 
-public class Item extends UuidIdentifiedEntity{
+public class Item extends UuidIdentifiedEntity {
 
     private String name;
     private String category;
     private double price;
+    private boolean isBasic;
+    private double taxRate;
 
-    
-    public Item(String name, String category, double price) {
+    public Item(String name, String category, double price, boolean isBasic) {
         this.name = name;
         this.category = category;
         this.price = price;
-    }
-    
-    public String getName() {
-        return name;
+        this.isBasic = isBasic;
+        this.taxRate = isBasic ? 7.0 : 19.0; // Setze den Steuersatz basierend auf isBasic
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
+    // Getter-Methoden
+    public String getName() { return name; }
+    public String getCategory() { return category; }
+    public double getPrice() { return price; }
+    public boolean isBasic() { return isBasic; }
+    public double getTaxRate() { return taxRate; }
 }
