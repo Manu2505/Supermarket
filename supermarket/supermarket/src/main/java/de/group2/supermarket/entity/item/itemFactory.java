@@ -1,4 +1,4 @@
-package de.group2.supermarket.entity;
+package de.group2.supermarket.entity.item;
 
 public class ItemFactory {
 
