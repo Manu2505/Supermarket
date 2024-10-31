@@ -17,6 +17,10 @@ public class ItemList extends UuidIdentifiedEntity {
         return itemPositions;
     }
 
+    public void setItemPositions(List<ItemPosition> itemPositions) {
+        this.itemPositions = itemPositions;
+    }
+
     public void additem(ItemPosition itemPosition) {
         this.itemPositions.add(itemPosition);
     }
