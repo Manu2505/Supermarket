@@ -3,25 +3,20 @@ package de.group2.supermarket.entity.receipt;
 import de.group2.supermarket.config.UuidIdentifiedEntity;
 import de.group2.supermarket.entity.ItemList;
 
-public class Receipt extends UuidIdentifiedEntity{
+public class Receipt extends UuidIdentifiedEntity {
 
-    private String date;
-    private String time;
-    private String cashier;
-    private ItemList itemList;
-    
-    /*public Receipt(ReceiptBuilder builder) {
-        this.date = builder.date;
-        this.time = builder.time;
-        this.cashier = builder.cashier;
-        this.itemList = builder.itemList;
-    } */
-   public Receipt(String date, String time, String cashier, ItemList itemList) {
-        this.date = date;
-        this.time = time;
-        this.cashier = cashier;
-        this.itemList = itemList;
-    }  
+    private final String date;
+    private final String time;
+    private final String cashier;
+    private final ItemList itemList;
+
+    // Konstruktor, der nur einen ReceiptBuilder akzeptiert
+    public Receipt(ReceiptBuilder builder) {
+        this.date = builder.getDate();
+        this.time = builder.getTime();
+        this.cashier = builder.getCashier();
+        this.itemList = builder.getItemList();
+    }
 
     public String getDate() {
         return date;

@@ -9,6 +9,7 @@ public class ReceiptBuilder {
     private String cashier;
     private ItemList itemList;
 
+    // Konstruktor, alle Werte Pflicht
     public ReceiptBuilder(String date, String time, String cashier, ItemList itemList) {
         this.date = date;
         this.time = time;
@@ -37,7 +38,23 @@ public class ReceiptBuilder {
     }
     
     public Receipt build() {
-        return new Receipt(this);
+        return new Receipt(this);  // Übergabe des Builders an Receipt
     }
-    
+
+    // Getter für den Zugriff durch Receipt
+    public String getDate() {
+        return date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public String getCashier() {
+        return cashier;
+    }
+
+    public ItemList getItemList() {
+        return itemList;
+    }
 }
