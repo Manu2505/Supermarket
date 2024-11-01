@@ -5,19 +5,25 @@ import de.group2.supermarket.entity.ItemList;
 
 public class Receipt extends UuidIdentifiedEntity {
 
-    private final String date;
-    private final String time;
-    private final String cashier;
-    private final ItemList itemList;
+    private String date;
+    private String time;
+    private String cashier;
+    private ItemList itemList;
 
-    // Konstruktor, der nur einen ReceiptBuilder akzeptiert
-    public Receipt(ReceiptBuilder builder) {
-        this.date = builder.getDate();
-        this.time = builder.getTime();
-        this.cashier = builder.getCashier();
-        this.itemList = builder.getItemList();
+    // Standardkonstruktor für JSON-Deserialisierung
+    public Receipt() {
+        // Standardkonstruktor kann leer bleiben
     }
 
+    // Konstruktor, der alle Felder akzeptiert (für den Builder)
+    public Receipt(String date, String time, String cashier, ItemList itemList) {
+        this.date = date;
+        this.time = time;
+        this.cashier = cashier;
+        this.itemList = itemList;
+    }
+
+    // Getter-Methoden
     public String getDate() {
         return date;
     }
@@ -32,5 +38,10 @@ public class Receipt extends UuidIdentifiedEntity {
 
     public ItemList getItemList() {
         return itemList;
+    }
+    
+    // Hier kannst du weiterhin einen Builder anlegen
+    public static ReceiptBuilder builder() {
+        return new ReceiptBuilder();
     }
 }
