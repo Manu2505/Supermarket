@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class POSBarcode implements POSComponent {
     private final POS.BarcodeType type;
@@ -12,6 +13,11 @@ public class POSBarcode implements POSComponent {
 
     public POSBarcode(long data, POS.BarcodeType type) {
         this.data = String.valueOf(data);
+        this.type = type;
+    }
+
+    public POSBarcode(UUID uuid, POS.BarcodeType type) {
+        this.data = String.valueOf(uuid);
         this.type = type;
     }
 

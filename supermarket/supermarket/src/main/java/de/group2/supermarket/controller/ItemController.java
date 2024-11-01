@@ -18,6 +18,8 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import de.group2.supermarket.entity.item.Item;
+import de.group2.supermarket.entity.item.ItemBarcodePrinter;
+import de.group2.supermarket.entity.item.ItemFactory;
 import de.group2.supermarket.repo.ItemRepository;
 
 @Controller
@@ -25,12 +27,16 @@ import de.group2.supermarket.repo.ItemRepository;
 @RequestMapping("/item")
 public class ItemController {
 
-@Autowired
+    @Autowired
 	private ItemRepository itemRepository;
+
+    @Autowired
+    private ItemFactory itemFactory;
 
     @PostMapping("")
     public ResponseEntity<Object> add(@RequestBody Item item){
-        return new ResponseEntity<Object>(itemRepository.save(item), HttpStatus.CREATED); // Recap: 201 means "Created"
+        Item newItem = itemFactory.createBasicItem(item.getName(), item.getCategory(), item.getPrice());
+        return new ResponseEntity<Object>(itemRepository.save(newItem), HttpStatus.CREATED); // Recap: 201 means "Created"
     }
     
 
@@ -42,6 +48,7 @@ public class ItemController {
     @GetMapping("{id}") // localhost:8080/item/"some id"
     public ResponseEntity<Object> getById(@PathVariable UUID id){
         try {
+            ItemBarcodePrinter.printItemBarcode(itemRepository.findById(id).get());
             return new ResponseEntity<Object>(itemRepository.findById(id).get(), HttpStatus.OK);
         } catch (NoSuchElementException e){
             return new ResponseEntity<Object>("Item with the id " + id + " could not be found", HttpStatus.NOT_FOUND); // Recap: 404 means "Not found"
