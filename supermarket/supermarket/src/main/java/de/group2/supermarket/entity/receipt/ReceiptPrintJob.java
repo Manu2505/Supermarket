@@ -1,5 +1,7 @@
 package de.group2.supermarket.entity.receipt;
 
+import java.util.Arrays;
+
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 
@@ -7,10 +9,18 @@ import de.group2.supermarket.bonprintextended.POS;
 import de.group2.supermarket.bonprintextended.POSPrinter;
 import de.group2.supermarket.bonprintextended.POSQRCode;
 import de.group2.supermarket.bonprintextended.POSReceipt;
+import de.group2.supermarket.bonprintextended.POSStyle;
 import de.group2.supermarket.entity.ItemList;
 import de.group2.supermarket.entity.ItemPosition;
+import de.group2.supermarket.entity.item.Item;
 
 public class ReceiptPrintJob {
+
+    public static void main(String[] args) {
+        ReceiptPrintJob receiptPrintJob = new ReceiptPrintJob();
+        receiptPrintJob.printReceipt(new ItemList(Arrays.asList(new ItemPosition(new Item("Test", "category", 0.19, true), 1)), 1.0));
+    }   
+
 
     public void printReceipt(ItemList itemList) {  
         Receipt receipt = new Receipt("Hello", "this is the time", "Bob", itemList);
@@ -33,8 +43,15 @@ public class ReceiptPrintJob {
             receiptPrint.setAddress("Erzbergerstrasse 121 \n76133 Karlsruhe");
             receiptPrint.setPhone("0123456789");
 
+            // Add empty space
+            receiptPrint.addFeed(2);
+
             // Add some items to the receiptPrint
-            addItemsToReceipt(receiptPrint, receipt);
+            try{
+                addItemsToReceiptTest(receiptPrint, receipt);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             receiptPrint.setTotal(receipt.getItemList().getTotalPrice());
 
@@ -62,6 +79,14 @@ public class ReceiptPrintJob {
     private void addItemsToReceipt(POSReceipt receiptPrint, Receipt receipt) {
         for (ItemPosition itemPosition : receipt.getItemList().getItemPositions()) {
             receiptPrint.addItem(itemPosition);
+        }
+    }
+
+    private void addItemsToReceiptTest(POSReceipt receiptPrint, Receipt receipt) {
+        for (ItemPosition itemPosition : receipt.getItemList().getItemPositions()) {
+            receiptPrint.addText(itemPosition.getItem().getName());
+            //receiptPrint.addItem(itemPosition.getItem().getName(), (itemPosition.getItem().getPrice() * ((100 + itemPosition.getItem().getTaxRate())/100)));
+            receiptPrint.addItem("Amount: " + itemPosition.getAmount(), (itemPosition.getItem().getPrice() * ((100 + itemPosition.getItem().getTaxRate())/100)));
         }
     }
 
