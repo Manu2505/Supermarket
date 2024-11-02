@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import de.group2.supermarket.entity.ItemList;
-import de.group2.supermarket.entity.item.Item;
+import de.group2.supermarket.entity.receipt.ReceiptPrintJob;
 import de.group2.supermarket.repo.ItemListRepository;
 
 @Controller
@@ -30,6 +30,8 @@ public class ItemListController {
 
     @PostMapping("")
     public ResponseEntity<Object> add(@RequestBody ItemList itemList){
+        ReceiptPrintJob receiptPrintJob = new ReceiptPrintJob();
+        receiptPrintJob.printReceipt(itemList);
         return new ResponseEntity<Object>(itemListRepository.save(itemList), HttpStatus.CREATED); // Recap: 201 means "Created"
     }
 

@@ -13,6 +13,9 @@ public class ItemList extends UuidIdentifiedEntity {
         this.totalPrice = totalPrice;
     }
 
+    public ItemList() {
+    }
+
     public List<ItemPosition> getItemPositions() {
         return itemPositions;
     }
