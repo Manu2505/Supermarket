@@ -1,28 +1,26 @@
 package de.group2.supermarket.entity.receipt;
 
-import java.util.Arrays;
-
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 
 import de.group2.supermarket.bonprintextended.POS;
+import de.group2.supermarket.bonprintextended.POSBarcode;
 import de.group2.supermarket.bonprintextended.POSPrinter;
 import de.group2.supermarket.bonprintextended.POSQRCode;
 import de.group2.supermarket.bonprintextended.POSReceipt;
-import de.group2.supermarket.entity.item.Item;
-import de.group2.supermarket.entity.itemList.ItemList;
 import de.group2.supermarket.entity.itemPosition.ItemPosition;
 
 public class ReceiptPrintJob {
 
+    /*
     public static void main(String[] args) {
         ReceiptPrintJob receiptPrintJob = new ReceiptPrintJob();
         receiptPrintJob.printReceipt(new ItemList(Arrays.asList(new ItemPosition(new Item("Test", "category", 0.19, true), 1)), 1.0));
     }   
+    */
 
-
-    public void printReceipt(ItemList itemList) {  
-        Receipt receipt = new Receipt.ReceiptBuilder("Hello", "this is the time", "Bob", itemList).build();
+    public void printReceipt(Receipt receipt) {  
+        
         try {
             // Find the printer by name
             //PrintService printerService = findPrintService("OLIVETTI PRT80");
@@ -45,6 +43,14 @@ public class ReceiptPrintJob {
             // Add empty space
             receiptPrint.addFeed(2);
 
+            // Add metadata
+            receiptPrint.addText(receipt.getDate().toString());
+            receiptPrint.addText(receipt.getTime().toString());
+            receiptPrint.addText("Cashier: " + receipt.getCashier().toString());
+
+            // Add empty space
+            receiptPrint.addFeed(2);
+
             // Add some items to the receiptPrint
             try{
                 addItemsToReceiptTest(receiptPrint, receipt);
@@ -52,6 +58,12 @@ public class ReceiptPrintJob {
                 e.printStackTrace();
             }
 
+            // Add empty space
+            receiptPrint.addFeed(2);
+
+            // Add Tax
+            receiptPrint.setTax(addTotalTax(receiptPrint, receipt));
+            // Add Total
             receiptPrint.setTotal(receipt.getItemList().getTotalPrice());
 
             /*Create and add a barcode to the receiptPrint
@@ -60,6 +72,12 @@ public class ReceiptPrintJob {
             barcode.setWidth(POS.BarWidth.DEFAULT);
             receiptPrint.addBarcode(barcode);
             */
+
+            // Create and add a barcode to the receipt
+            POSBarcode barcode = new POSBarcode(receipt.getItemList().getId(), POS.BarcodeType.CODE128);
+            barcode.setHeight(162);
+            barcode.setWidth(POS.BarWidth.DEFAULT);
+            receiptPrint.addBarcode(barcode);
 
             POSQRCode qrcode = new POSQRCode("www.woistmanuel.de", POS.ErrorCorrection.PERCENT_15, POS.QrCodeSize.EXTRA_LARGE);
             receiptPrint.addQRCode(qrcode);
@@ -80,6 +98,20 @@ public class ReceiptPrintJob {
         for (ItemPosition itemPosition : receipt.getItemList().getItemPositions()) {
             receiptPrint.addItem(itemPosition);
         }
+    }
+
+    private double addTotalTax(POSReceipt receiptPrint, Receipt receipt) {
+        double totalTax = 0;
+        for (ItemPosition itemPosition : receipt.getItemList().getItemPositions()) {
+            totalTax += calculateTaxForPosition(itemPosition);
+        }
+        return totalTax;
+    }
+
+    private double calculateTaxForPosition(ItemPosition itemPosition) {
+        double netto = itemPosition.getItem().getPrice() * itemPosition.getAmount();
+        double tax = netto * (itemPosition.getItem().getTaxRate() / 100);	
+        return tax;
     }
 
     private void addItemsToReceiptTest(POSReceipt receiptPrint, Receipt receipt) {

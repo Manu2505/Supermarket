@@ -17,7 +17,6 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import de.group2.supermarket.entity.itemList.ItemList;
-import de.group2.supermarket.entity.receipt.ReceiptPrintJob;
 import de.group2.supermarket.repo.ItemListRepository;
 
 @Controller
@@ -30,8 +29,6 @@ public class ItemListController {
 
     @PostMapping("")
     public ResponseEntity<Object> add(@RequestBody ItemList itemList){
-        ReceiptPrintJob receiptPrintJob = new ReceiptPrintJob();
-        receiptPrintJob.printReceipt(itemList);
         return new ResponseEntity<Object>(itemListRepository.save(itemList), HttpStatus.CREATED); // Recap: 201 means "Created"
     }
 
@@ -50,11 +47,10 @@ public class ItemListController {
     }
  
     
-    //auch da keine Ahnung ob das für Update passt
+
     @PutMapping("/{id}") // localhost:8080/itemList/"some id"
     public ResponseEntity<Object> update(@PathVariable UUID id, @RequestBody ItemList itemList){
         try{
-            itemList.setId(id);
             return new ResponseEntity<Object>(itemListRepository.save(itemList), HttpStatus.OK);
         }catch (NoSuchElementException e){
             return new ResponseEntity<Object>("ItemList with id " + id + " could not be found", HttpStatus.NOT_FOUND);
