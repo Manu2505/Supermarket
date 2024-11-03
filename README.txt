@@ -23,14 +23,15 @@ The requirments from the customer are the following:
 
 A user story map in included with a picture.
 There are no non-functional requirments regarding performance, security or else.
-Functional requirments are the scanning of items, the printing of a receipt, the ///////////////////////////////////////////////////////
+Functional requirments are the scanning of items, the printing of a receipt, calculating the total price and providing the payment options card and cash for the customer
+///////////////////////////////////////////////////////
 
 Further graphs and design mock ups are not required.
 
 All the data gets transfered within JSON Objects which provide a wide range of acceptance and felxibility within on and many different systems. The data gets stored in MongoDB as a file, but can be extracted as a JSON as it is placed in the syntax of a JSON.
 Data protection is not a requirment, therefore there is no implementation of security and data safety features.
 
-Two porcesses can be seen in sequence diagramms which are porvided in two picutres.
+Two processes can be seen in sequence diagramms which are porvided in two picutres.
 
 There are no constrains except unforeseen events such as a power outage or galactic radiation, and, of course, our own inability to produce good code.
 
