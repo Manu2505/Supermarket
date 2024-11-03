@@ -1,5 +1,8 @@
 package de.group2.supermarket.entity.receipt;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import de.group2.supermarket.config.UuidIdentifiedEntity;
 import de.group2.supermarket.entity.itemList.ItemList;
 
@@ -17,6 +20,17 @@ public class Receipt extends UuidIdentifiedEntity {
         this.cashier = receiptBuilder.cashier;
         this.itemList = receiptBuilder.itemList;
     }
+@JsonCreator
+    public Receipt(@JsonProperty("date") String date,
+                   @JsonProperty("time") String time,
+                   @JsonProperty("cashier") String cashier,
+                   @JsonProperty("itemList") ItemList itemList) {
+        this.date = date;
+        this.time = time;
+        this.cashier = cashier;
+        this.itemList = itemList;
+    }
+    
 
     // Getter-Methoden
     public String getDate() {
