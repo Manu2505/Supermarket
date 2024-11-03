@@ -59,6 +59,7 @@ public class ItemController {
         }
     }
 
+    //gets called to print a Label
     @GetMapping("/printLabel/{id}") // localhost:8080/item/printLabel/"some id"
     public ResponseEntity<Object> printLabelById(@PathVariable UUID id){
         try {
