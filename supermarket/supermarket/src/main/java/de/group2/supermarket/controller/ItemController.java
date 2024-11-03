@@ -49,7 +49,6 @@ public class ItemController {
     @GetMapping("{id}") // localhost:8080/item/"some id"
     public ResponseEntity<Object> getById(@PathVariable UUID id){
         try {
-            ItemBarcodePrinter.printItemBarcode(itemRepository.findById(id).get());
             return new ResponseEntity<Object>(itemRepository.findById(id).get(), HttpStatus.OK);
         } catch (NoSuchElementException e){
             return new ResponseEntity<Object>("Item with the id " + id + " could not be found", HttpStatus.NOT_FOUND); // Recap: 404 means "Not found"
