@@ -32,12 +32,16 @@ public class ItemController {
     @PostMapping("")
     public ResponseEntity<Object> add(@RequestBody Item item){
         Item newItem;
-        if (item.isBasic()) { 
-            newItem = ItemFactory.createBasicItem(item.getName(), item.getCategory(), item.getPrice());
-        } else {
-            newItem = ItemFactory.createStandardItem(item.getName(), item.getCategory(), item.getPrice());
+        try {
+            if (item.isReduced()) { 
+                newItem = ItemFactory.createReducedTaxItem(item.getName(), item.getCategory(), item.getPrice());
+            } else {
+                newItem = ItemFactory.createStandardTaxItem(item.getName(), item.getCategory(), item.getPrice());
+            }
+            return new ResponseEntity<Object>(itemRepository.save(newItem), HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<Object>(itemRepository.save(newItem), HttpStatus.CREATED); // Recap: 201 means "Created"
     }
     
 
