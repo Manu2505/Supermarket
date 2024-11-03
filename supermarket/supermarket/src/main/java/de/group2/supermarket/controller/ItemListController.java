@@ -30,8 +30,6 @@ public class ItemListController {
 
     @PostMapping("")
     public ResponseEntity<Object> add(@RequestBody ItemList itemList){
-        ReceiptPrintJob receiptPrintJob = new ReceiptPrintJob();
-        receiptPrintJob.printReceipt(itemList);
         return new ResponseEntity<Object>(itemListRepository.save(itemList), HttpStatus.CREATED); // Recap: 201 means "Created"
     }
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.group2.supermarket.entity.receipt.Receipt;
+import de.group2.supermarket.entity.receipt.ReceiptPrintJob;
 import de.group2.supermarket.repo.ReceiptRepository;
 
 @Controller
@@ -27,6 +28,8 @@ public class ReceiptController {
 
     @PostMapping("")
     public ResponseEntity<Object> add(@RequestBody Receipt receipt){
+        ReceiptPrintJob receiptPrintJob = new ReceiptPrintJob();
+        receiptPrintJob.printReceipt(receipt);
         return new ResponseEntity<Object>(receiptRepository.save(receipt), HttpStatus.CREATED); // Recap: 201 means "Created"
     }
     

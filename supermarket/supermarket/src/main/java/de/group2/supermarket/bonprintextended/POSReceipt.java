@@ -49,9 +49,14 @@ public class POSReceipt extends POSDocument {
         addComponent(barcode);
     }
 
+    public void setTax(double tax) {
+        addStyle(POSStyle.BOLD);
+        addComponent(() -> String.format("Tax: %10.2f\n", tax).getBytes());
+        resetStyle();
+    }
+
     public void setTotal(double total) {
         // Feed a bit before printing the total
-        addFeed(2);
         addStyle(POSStyle.BOLD);
         addComponent(() -> String.format("Total: %10.2f\n", total).getBytes());
         resetStyle(); // Reset after total
