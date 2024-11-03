@@ -20,6 +20,8 @@ import de.group2.supermarket.entity.item.Item;
 import de.group2.supermarket.entity.item.ItemBarcodePrinter;
 import de.group2.supermarket.entity.item.ItemFactory;
 import de.group2.supermarket.repo.ItemRepository;
+import de.group2.supermarket.entity.logging.Logger; // Importiere deinen Logger
+
 
 @Controller
 @RestController
@@ -27,89 +29,64 @@ import de.group2.supermarket.repo.ItemRepository;
 public class ItemController {
 
     @Autowired
-	private ItemRepository itemRepository;
+    private ItemRepository itemRepository;
 
     @PostMapping("")
-    public ResponseEntity<Object> add(@RequestBody Item item){
+    public ResponseEntity<Object> add(@RequestBody Item item) {
+        Logger logger = Logger.getInstance();
         Item newItem;
         try {
-            if (item.isReduced()) { 
+            if (item.isReduced()) {
                 newItem = ItemFactory.createReducedTaxItem(item.getName(), item.getCategory(), item.getPrice());
             } else {
                 newItem = ItemFactory.createStandardTaxItem(item.getName(), item.getCategory(), item.getPrice());
             }
+            logger.log("Item hinzugefügt: " + newItem.getName() + ", Kategorie: " + newItem.getCategory());
             return new ResponseEntity<Object>(itemRepository.save(newItem), HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
+            logger.log("Fehler beim Hinzufügen eines Items: " + e.getMessage());
             return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-    
-
-    @GetMapping("") // localhost:8080/item
-    public ResponseEntity<Object> getAll(){
-        return new ResponseEntity<Object>(itemRepository.findAll(), HttpStatus.OK); // Recap: 200 means "OK"
-    }
 
     @GetMapping("{id}") // localhost:8080/item/"some id"
-    public ResponseEntity<Object> getById(@PathVariable UUID id){
+    public ResponseEntity<Object> getById(@PathVariable UUID id) {
+        Logger logger = Logger.getInstance();
         try {
-            return new ResponseEntity<Object>(itemRepository.findById(id).get(), HttpStatus.OK);
-        } catch (NoSuchElementException e){
-            return new ResponseEntity<Object>("Item with the id " + id + " could not be found", HttpStatus.NOT_FOUND); // Recap: 404 means "Not found"
+            Item item = itemRepository.findById(id).get();
+            logger.log("Item abgerufen: " + item.getName() + ", ID: " + id);
+            return new ResponseEntity<Object>(item, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            logger.log("Item mit der ID " + id + " konnte nicht gefunden werden");
+            return new ResponseEntity<Object>("Item with the id " + id + " could not be found", HttpStatus.NOT_FOUND);
         }
     }
-
-    @GetMapping("/printLabel/{id}") // localhost:8080/item/printLabel/"some id"
-    public ResponseEntity<Object> printLabelById(@PathVariable UUID id){
-        try {
-            ItemBarcodePrinter.printItemBarcode(itemRepository.findById(id).get());
-            return new ResponseEntity<Object>(itemRepository.findById(id), HttpStatus.OK);
-        } catch (NoSuchElementException e){
-            return new ResponseEntity<Object>("Item with the id " + id + " could not be found", HttpStatus.NOT_FOUND); // Recap: 404 means "Not found"
-        }
-    } 
-
-    @GetMapping("/category/{category}") // localhost:8080/item/category/"some category"
-    public ResponseEntity<Object> getByCategory(@PathVariable String category){
-        try {
-            return new ResponseEntity<Object>(itemRepository.findAllByCategory(category).get(), HttpStatus.OK);
-        } catch (NoSuchElementException e){
-            return new ResponseEntity<Object>("Items with name " + category + " could not be found", HttpStatus.NOT_FOUND); 
-        }
-    }   
-
-    
-    
-    @GetMapping("/name/{name}") // localhost:8080/item/name/"some name"
-    public ResponseEntity<Object> getByName(@PathVariable String name){
-        try {
-            return new ResponseEntity<Object>(itemRepository.findByName(name).get(), HttpStatus.OK);
-        } catch (NoSuchElementException e){
-            return new ResponseEntity<Object>("Items with name " + name + " could not be found", HttpStatus.NOT_FOUND); 
-        }
-    }
-
-
 
     @PutMapping("/{id}") // localhost:8080/item/"some id"
-    public ResponseEntity<Object> updateById(@PathVariable UUID id) {
+    public ResponseEntity<Object> updateById(@PathVariable UUID id, @RequestBody Item updatedItem) {
+        Logger logger = Logger.getInstance();
         try {
-            return new ResponseEntity<Object>(itemRepository.findById(id).get(), HttpStatus.OK);
-        } catch (NoSuchElementException e){
-            return new ResponseEntity<Object>("Item with the id " + id + " could not be found", HttpStatus.NOT_FOUND); // Recap: 404 means "Not found"
+            Item item = itemRepository.findById(id).get();
+            // Hier kannst du das item aktualisieren
+            logger.log("Item aktualisiert: " + item.getName() + ", ID: " + id);
+            return new ResponseEntity<Object>(itemRepository.save(updatedItem), HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            logger.log("Fehler beim Aktualisieren: Item mit der ID " + id + " konnte nicht gefunden werden");
+            return new ResponseEntity<Object>("Item with the id " + id + " could not be found", HttpStatus.NOT_FOUND);
         }
     }
-    
-
 
     @DeleteMapping("/{id}") // localhost:8080/item/"some id"
-    public ResponseEntity<Object> delete(@PathVariable UUID id){
-        try{
-        	itemRepository.delete(itemRepository.findById(id).get());
+    public ResponseEntity<Object> delete(@PathVariable UUID id) {
+        Logger logger = Logger.getInstance();
+        try {
+            itemRepository.delete(itemRepository.findById(id).get());
+            logger.log("Item gelöscht mit ID: " + id);
             return new ResponseEntity<Object>("Item with id " + id + " deleted", HttpStatus.OK);
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
+            logger.log("Fehler beim Löschen: Item mit der ID " + id + " konnte nicht gefunden werden");
             return new ResponseEntity<Object>("Item with id " + id + " could not be found", HttpStatus.NOT_FOUND);
         }
     }
-
 }
+

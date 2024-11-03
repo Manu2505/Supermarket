@@ -18,6 +18,7 @@ import de.group2.supermarket.entity.receipt.Receipt;
 import de.group2.supermarket.entity.receipt.ReceiptPrintJob;
 import de.group2.supermarket.entity.receipt.Receipt.ReceiptBuilder;
 import de.group2.supermarket.repo.ReceiptRepository;
+import de.group2.supermarket.entity.logging.Logger;
 
 @Controller
 @RestController
@@ -29,52 +30,41 @@ public class ReceiptController {
 
     @PostMapping("")
     public ResponseEntity<Object> add(@RequestBody Receipt receiptIn) {
+        Logger logger = Logger.getInstance();
         Receipt receipt = new Receipt.ReceiptBuilder()
-        .setDate(receiptIn.getDate())
-        .setTime(receiptIn.getTime())
-        .setCashier(receiptIn.getCashier())
-        .setItemList(receiptIn.getItemList())
-        .build();
+            .setDate(receiptIn.getDate())
+            .setTime(receiptIn.getTime())
+            .setCashier(receiptIn.getCashier())
+            .setItemList(receiptIn.getItemList())
+            .build();
         
-        ReceiptPrintJob receiptPrintJob = new ReceiptPrintJob();
-        receiptPrintJob.printReceipt(receipt);
-        return new ResponseEntity<Object>(receiptRepository.save(receipt), HttpStatus.CREATED); // Recap: 201 means
-                                                                                                // "Created"
-    }
-
-    @GetMapping("") // localhost:8080/receipt
-    public ResponseEntity<Object> getAll() {
-        return new ResponseEntity<Object>(receiptRepository.findAll(), HttpStatus.OK); // Recap: 200 means "OK"
+        logger.log("Quittung hinzugefügt: " + receipt.getId());
+        return new ResponseEntity<Object>(receiptRepository.save(receipt), HttpStatus.CREATED);
     }
 
     @GetMapping("{id}") // localhost:8080/receipt/"some id"
     public ResponseEntity<Object> getById(@PathVariable UUID id) {
+        Logger logger = Logger.getInstance();
         try {
-            return new ResponseEntity<Object>(receiptRepository.findById(id).get(), HttpStatus.OK);
+            Receipt receipt = receiptRepository.findById(id).get();
+            logger.log("Quittung abgerufen: " + receipt.getId());
+            return new ResponseEntity<Object>(receipt, HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<Object>("Receipt with the id " + id + " could not be found",
-                    HttpStatus.NOT_FOUND); // Recap: 404 means "Not found"
-        }
-    }
-
-    @GetMapping("/type/{type}") // localhost:8080/receipt/date/"some name"
-    public ResponseEntity<Object> getByName(@PathVariable String date) {
-        try {
-            return new ResponseEntity<Object>(receiptRepository.findAllByDate(date).get(), HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<Object>("Receipts with name " + date + " could not be found",
-                    HttpStatus.NOT_FOUND);
+            logger.log("Quittung mit der ID " + id + " konnte nicht gefunden werden");
+            return new ResponseEntity<Object>("Receipt with the id " + id + " could not be found", HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/{id}") // localhost:8080/receipt/"some id"
     public ResponseEntity<Object> delete(@PathVariable UUID id) {
+        Logger logger = Logger.getInstance();
         try {
             receiptRepository.delete(receiptRepository.findById(id).get());
+            logger.log("Quittung gelöscht mit ID: " + id);
             return new ResponseEntity<Object>("Receipt with id " + id + " deleted", HttpStatus.OK);
         } catch (NoSuchElementException e) {
+            logger.log("Fehler beim Löschen: Quittung mit der ID " + id + " konnte nicht gefunden werden");
             return new ResponseEntity<Object>("Receipt with id " + id + " could not be found", HttpStatus.NOT_FOUND);
         }
     }
-
 }
