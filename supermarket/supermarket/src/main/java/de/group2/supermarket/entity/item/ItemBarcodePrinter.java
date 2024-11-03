@@ -3,10 +3,7 @@ package de.group2.supermarket.entity.item;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 
-import de.group2.supermarket.bonprintextended.POS;
-import de.group2.supermarket.bonprintextended.POSBarcode;
-import de.group2.supermarket.bonprintextended.POSPrinter;
-import de.group2.supermarket.bonprintextended.POSReceipt;
+import de.group2.supermarket.bonprintextended.*;
 
 public class ItemBarcodePrinter {
 
@@ -22,7 +19,7 @@ public class ItemBarcodePrinter {
             }
 
             // Create a new POSPrinter instance
-            POSPrinter posPrinter = new POSPrinter();
+            SupermarketPrinter posPrinter = new POSPrinter();
 
             // Create a new receipt
             POSReceipt receipt = new POSReceipt();

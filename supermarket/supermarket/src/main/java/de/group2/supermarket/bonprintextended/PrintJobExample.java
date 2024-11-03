@@ -17,7 +17,7 @@ public class PrintJobExample {
             }
 
             // Create a new POSPrinter instance
-            POSPrinter posPrinter = new POSPrinter();
+            SupermarketPrinter posPrinter = new POSPrinter();
 
             // Create a new receipt
             POSReceipt receipt = new POSReceipt();

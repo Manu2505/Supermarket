@@ -8,7 +8,7 @@ import javax.print.PrintService;
 import javax.print.SimpleDoc;
 import javax.print.PrintException;
 
-public class POSPrinter {
+public class POSPrinter implements SupermarketPrinter{
 
     public void print(POSDocument document, PrintService printerService)  {
         // Convert the POSDocument to byte array for printing
@@ -39,7 +39,7 @@ public class POSPrinter {
     }
 
     // Helper method to concatenate multiple byte arrays
-    public static byte[] concat(byte[]... arrays) {
+    private static byte[] concat(byte[]... arrays) {
         int totalLength = 0;
         for (byte[] array : arrays) {
             totalLength += array.length;
