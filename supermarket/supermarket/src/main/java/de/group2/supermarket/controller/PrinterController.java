@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.group2.supermarket.entity.Printer;
+import de.group2.supermarket.entity.printer.Printer;
 import de.group2.supermarket.repo.PrinterRepository;
 
 

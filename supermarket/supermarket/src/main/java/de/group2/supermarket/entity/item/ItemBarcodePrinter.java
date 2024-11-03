@@ -6,7 +6,6 @@ import javax.print.PrintServiceLookup;
 import de.group2.supermarket.bonprintextended.POS;
 import de.group2.supermarket.bonprintextended.POSBarcode;
 import de.group2.supermarket.bonprintextended.POSPrinter;
-import de.group2.supermarket.bonprintextended.POSQRCode;
 import de.group2.supermarket.bonprintextended.POSReceipt;
 
 public class ItemBarcodePrinter {

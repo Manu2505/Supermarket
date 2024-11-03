@@ -1,6 +1,6 @@
 package de.group2.supermarket.entity.receipt;
 
-import de.group2.supermarket.entity.ItemList;
+import de.group2.supermarket.entity.itemList.ItemList;
 
 public class ReceiptBuilder {
     
