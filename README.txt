@@ -24,7 +24,7 @@ The requirments from the customer are the following:
 A user story map in included with a picture.
 There are no non-functional requirments regarding performance, security or else.
 Functional requirments are the scanning of items, the printing of a receipt, calcultaing the total price and providing the payment options cash and card.
-///////////////////////////////////////////////////////
+
 
 Further graphs and design mock ups are not required.
 
