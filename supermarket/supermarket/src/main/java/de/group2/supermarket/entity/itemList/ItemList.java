@@ -1,7 +1,8 @@
-package de.group2.supermarket.entity;
+package de.group2.supermarket.entity.itemList;
 
 import java.util.List;
 import de.group2.supermarket.config.UuidIdentifiedEntity;
+import de.group2.supermarket.entity.itemPosition.ItemPosition;
 
 public class ItemList extends UuidIdentifiedEntity {
 

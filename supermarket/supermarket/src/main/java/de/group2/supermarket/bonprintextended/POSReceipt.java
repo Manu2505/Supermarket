@@ -1,6 +1,6 @@
 package de.group2.supermarket.bonprintextended;
 
-import de.group2.supermarket.entity.ItemPosition;
+import de.group2.supermarket.entity.itemPosition.ItemPosition;
 
 public class POSReceipt extends POSDocument {
     private String title;
