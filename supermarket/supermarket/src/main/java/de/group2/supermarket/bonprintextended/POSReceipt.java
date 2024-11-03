@@ -35,7 +35,7 @@ public class POSReceipt extends POSDocument {
                 () -> String.format("%-20s %10.2f\n", itemName, quantity, price, priceWithTax).getBytes());
     }
 
-    // TODO ItemPosition is too long
+    // TODO ItemPosition is too long, probably
     public void addItem(ItemPosition itemPosition) {
         double priceWithTax = itemPosition.getItem().getPrice() * (1 + itemPosition.getItem().getTaxRate());
         addComponent(() -> String.format("%-20s %10.2f\n", itemPosition.getItem().getName(), itemPosition.getAmount(), itemPosition.getItem().getPrice(),priceWithTax ).getBytes());

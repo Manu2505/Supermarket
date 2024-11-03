@@ -29,7 +29,7 @@ public class ItemBarcodePrinter {
             POSReceipt receipt = new POSReceipt();
 
             // Add some items to the receipt
-            receipt.addItem(item.getName(), item.getPrice());
+            receipt.addItem(item.getName(), (item.getPrice() * (100 + item.getTaxRate())) / 100);
 
             // Create and add a barcode to the receipt
             POSBarcode barcode = new POSBarcode(item.getId(), POS.BarcodeType.CODE128);

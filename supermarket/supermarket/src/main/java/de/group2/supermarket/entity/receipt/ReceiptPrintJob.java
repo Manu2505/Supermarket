@@ -9,7 +9,6 @@ import de.group2.supermarket.bonprintextended.POS;
 import de.group2.supermarket.bonprintextended.POSPrinter;
 import de.group2.supermarket.bonprintextended.POSQRCode;
 import de.group2.supermarket.bonprintextended.POSReceipt;
-import de.group2.supermarket.bonprintextended.POSStyle;
 import de.group2.supermarket.entity.ItemList;
 import de.group2.supermarket.entity.ItemPosition;
 import de.group2.supermarket.entity.item.Item;
@@ -76,6 +75,7 @@ public class ReceiptPrintJob {
         }
     }
 
+        // Receipt with the ItemPositions which doesnt work, because its probably too long
     private void addItemsToReceipt(POSReceipt receiptPrint, Receipt receipt) {
         for (ItemPosition itemPosition : receipt.getItemList().getItemPositions()) {
             receiptPrint.addItem(itemPosition);

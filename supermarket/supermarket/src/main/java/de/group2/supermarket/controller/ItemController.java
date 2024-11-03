@@ -1,8 +1,6 @@
 package de.group2.supermarket.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.mongodb.repository.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -33,7 +31,12 @@ public class ItemController {
 
     @PostMapping("")
     public ResponseEntity<Object> add(@RequestBody Item item){
-        Item newItem = ItemFactory.createBasicItem(item.getName(), item.getCategory(), item.getPrice());
+        Item newItem;
+        if (item.isBasic()) { 
+            newItem = ItemFactory.createBasicItem(item.getName(), item.getCategory(), item.getPrice());
+        } else {
+            newItem = ItemFactory.createStandardItem(item.getName(), item.getCategory(), item.getPrice());
+        }
         return new ResponseEntity<Object>(itemRepository.save(newItem), HttpStatus.CREATED); // Recap: 201 means "Created"
     }
     
