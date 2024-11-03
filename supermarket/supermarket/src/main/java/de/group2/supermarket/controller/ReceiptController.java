@@ -29,7 +29,13 @@ public class ReceiptController {
 
     @PostMapping("")
     public ResponseEntity<Object> add(@RequestBody Receipt receiptIn) {
-        Receipt receipt = new Receipt.ReceiptBuilder().setDate(receiptIn.getDate()).setTime(receiptIn.getTime()).setCashier(receiptIn.getCashier()).setItemList(receiptIn.getItemList()).build();
+        Receipt receipt = new Receipt.ReceiptBuilder()
+        .setDate(receiptIn.getDate())
+        .setTime(receiptIn.getTime())
+        .setCashier(receiptIn.getCashier())
+        .setItemList(receiptIn.getItemList())
+        .build();
+        
         ReceiptPrintJob receiptPrintJob = new ReceiptPrintJob();
         receiptPrintJob.printReceipt(receipt);
         return new ResponseEntity<Object>(receiptRepository.save(receipt), HttpStatus.CREATED); // Recap: 201 means
