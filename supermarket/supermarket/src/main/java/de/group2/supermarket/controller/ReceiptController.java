@@ -1,8 +1,9 @@
 package de.group2.supermarket.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,11 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.group2.supermarket.entity.logging.Logger;
 import de.group2.supermarket.entity.receipt.Receipt;
 import de.group2.supermarket.entity.receipt.ReceiptPrintJob;
-import de.group2.supermarket.entity.receipt.Receipt.ReceiptBuilder;
 import de.group2.supermarket.repo.ReceiptRepository;
-import de.group2.supermarket.entity.logging.Logger;
 
 @Controller
 @RestController
@@ -41,7 +41,7 @@ public class ReceiptController {
             receiptPrintJob.printReceipt(receipt);
         
         logger.log("Quittung hinzugefügt: " + receipt.getId());
-        return new ResponseEntity<Object>(receiptRepository.save(receipt), HttpStatus.CREATED);
+        return new ResponseEntity<>(receiptRepository.save(receipt), HttpStatus.CREATED);
     }
 
     @GetMapping("{id}") // localhost:8080/receipt/"some id"
@@ -50,10 +50,10 @@ public class ReceiptController {
         try {
             Receipt receipt = receiptRepository.findById(id).get();
             logger.log("Quittung abgerufen: " + receipt.getId());
-            return new ResponseEntity<Object>(receipt, HttpStatus.OK);
+            return new ResponseEntity<>(receipt, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             logger.log("Quittung mit der ID " + id + " konnte nicht gefunden werden");
-            return new ResponseEntity<Object>("Receipt with the id " + id + " could not be found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Receipt with the id " + id + " could not be found", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -63,10 +63,10 @@ public class ReceiptController {
         try {
             receiptRepository.delete(receiptRepository.findById(id).get());
             logger.log("Quittung gelöscht mit ID: " + id);
-            return new ResponseEntity<Object>("Receipt with id " + id + " deleted", HttpStatus.OK);
+            return new ResponseEntity<>("Receipt with id " + id + " deleted", HttpStatus.OK);
         } catch (NoSuchElementException e) {
             logger.log("Fehler beim Löschen: Quittung mit der ID " + id + " konnte nicht gefunden werden");
-            return new ResponseEntity<Object>("Receipt with id " + id + " could not be found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Receipt with id " + id + " could not be found", HttpStatus.NOT_FOUND);
         }
     }
 }

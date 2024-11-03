@@ -10,8 +10,9 @@ public class UuIdIdentifiedEntityEventListener extends AbstractMongoEventListene
     
     private static final SecureRandom random = new SecureRandom();
 
+    @SuppressWarnings("null")
     @Override
-    public void onBeforeConvert(BeforeConvertEvent<UuidIdentifiedEntity> event) {
+    public void onBeforeConvert( BeforeConvertEvent<UuidIdentifiedEntity> event) {
         
         super.onBeforeConvert(event);
         UuidIdentifiedEntity entity = event.getSource();

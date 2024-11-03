@@ -14,24 +14,28 @@ public class CustomMongoRepositoryImpl<T extends UuidIdentifiedEntity> extends S
         super(metadata, mongoOperations);        
     }
     
+    @SuppressWarnings("null")
     @Override
     public <S extends T> S save(S entity) {
         generateId(entity);
         return super.save(entity);
     }
 
+    @SuppressWarnings("null")
     @Override
     public <S extends T> List<S> saveAll(Iterable<S> entities) {
         entities.forEach(entity -> generateId(entity));
         return super.saveAll(entities);
     }
 
+    @SuppressWarnings("null")
     @Override
     public <S extends T> S insert(S entity) {
         generateId(entity);
         return super.insert(entity);
     }
 
+    @SuppressWarnings("null")
     @Override
     public <S extends T> List<S> insert(Iterable<S> entities) {
         entities.forEach(entity -> generateId(entity));

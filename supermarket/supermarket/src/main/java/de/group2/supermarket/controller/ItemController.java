@@ -1,5 +1,8 @@
 package de.group2.supermarket.controller;
 
+import java.util.NoSuchElementException;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.NoSuchElementException;
-import java.util.UUID;
-
 import de.group2.supermarket.entity.item.Item;
 import de.group2.supermarket.entity.item.ItemBarcodePrinter;
 import de.group2.supermarket.entity.item.ItemFactory;
-import de.group2.supermarket.repo.ItemRepository;
-import de.group2.supermarket.entity.logging.Logger; // Importiere deinen Logger
+import de.group2.supermarket.entity.logging.Logger;
+import de.group2.supermarket.repo.ItemRepository; // Importiere deinen Logger
 
 
 @Controller
@@ -42,10 +42,10 @@ public class ItemController {
                 newItem = ItemFactory.createStandardTaxItem(item.getName(), item.getCategory(), item.getPrice());
             }
             logger.log("Item hinzugefügt: " + newItem.getName() + ", Kategorie: " + newItem.getCategory());
-            return new ResponseEntity<Object>(itemRepository.save(newItem), HttpStatus.CREATED);
+            return new ResponseEntity<>(itemRepository.save(newItem), HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             logger.log("Fehler beim Hinzufügen eines Items: " + e.getMessage());
-            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -55,10 +55,10 @@ public class ItemController {
         try {
             Item item = itemRepository.findById(id).get();
             logger.log("Item abgerufen: " + item.getName() + ", ID: " + id);
-            return new ResponseEntity<Object>(item, HttpStatus.OK);
+            return new ResponseEntity<>(item, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             logger.log("Item mit der ID " + id + " konnte nicht gefunden werden");
-            return new ResponseEntity<Object>("Item with the id " + id + " could not be found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Item with the id " + id + " could not be found", HttpStatus.NOT_FOUND);
         }
     }
     @GetMapping("/printLabel/{id}") // localhost:8080/item/printLabel/"some id"
@@ -68,9 +68,9 @@ public class ItemController {
             Item item = itemRepository.findById(id).get();
             logger.log("Item abgerufen: " + item.getName() + ", ID: " + id);
             ItemBarcodePrinter.printItemBarcode(item);
-            return new ResponseEntity<Object>(itemRepository.findById(id), HttpStatus.OK);
+            return new ResponseEntity<>(itemRepository.findById(id), HttpStatus.OK);
         } catch (NoSuchElementException e){
-            return new ResponseEntity<Object>("Item with the id " + id + " could not be found", HttpStatus.NOT_FOUND); // Recap: 404 means "Not found"
+            return new ResponseEntity<>("Item with the id " + id + " could not be found", HttpStatus.NOT_FOUND); // Recap: 404 means "Not found"
         }
     } 
 
@@ -81,10 +81,10 @@ public class ItemController {
             Item item = itemRepository.findById(id).get();
             // Hier kannst du das item aktualisieren
             logger.log("Item aktualisiert: " + item.getName() + ", ID: " + id);
-            return new ResponseEntity<Object>(itemRepository.save(updatedItem), HttpStatus.OK);
+            return new ResponseEntity<>(itemRepository.save(updatedItem), HttpStatus.OK);
         } catch (NoSuchElementException e) {
             logger.log("Fehler beim Aktualisieren: Item mit der ID " + id + " konnte nicht gefunden werden");
-            return new ResponseEntity<Object>("Item with the id " + id + " could not be found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Item with the id " + id + " could not be found", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -94,10 +94,10 @@ public class ItemController {
         try {
             itemRepository.delete(itemRepository.findById(id).get());
             logger.log("Item gelöscht mit ID: " + id);
-            return new ResponseEntity<Object>("Item with id " + id + " deleted", HttpStatus.OK);
+            return new ResponseEntity<>("Item with id " + id + " deleted", HttpStatus.OK);
         } catch (NoSuchElementException e) {
             logger.log("Fehler beim Löschen: Item mit der ID " + id + " konnte nicht gefunden werden");
-            return new ResponseEntity<Object>("Item with id " + id + " could not be found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Item with id " + id + " could not be found", HttpStatus.NOT_FOUND);
         }
     }
 }
