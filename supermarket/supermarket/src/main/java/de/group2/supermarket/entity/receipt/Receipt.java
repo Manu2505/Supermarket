@@ -50,6 +50,9 @@ public static class ReceiptBuilder {
         this.itemList = itemList;
     }
 
+    public ReceiptBuilder() {
+    }
+
     public ReceiptBuilder setDate(String date) {
         this.date = date;
         return this;
