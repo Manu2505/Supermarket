@@ -47,11 +47,10 @@ public class ItemListController {
     }
  
     
-    //auch da keine Ahnung ob das für Update passt
+
     @PutMapping("/{id}") // localhost:8080/itemList/"some id"
     public ResponseEntity<Object> update(@PathVariable UUID id, @RequestBody ItemList itemList){
         try{
-            itemList.setId(id);
             return new ResponseEntity<Object>(itemListRepository.save(itemList), HttpStatus.OK);
         }catch (NoSuchElementException e){
             return new ResponseEntity<Object>("ItemList with id " + id + " could not be found", HttpStatus.NOT_FOUND);
