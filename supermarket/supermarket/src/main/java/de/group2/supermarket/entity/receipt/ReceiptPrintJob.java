@@ -5,6 +5,7 @@ import javax.print.PrintServiceLookup;
 
 import de.group2.supermarket.bonprintextended.*;
 import de.group2.supermarket.entity.itemPosition.ItemPosition;
+import de.group2.supermarket.entity.logging.Logger;
 
 public class ReceiptPrintJob {
 
@@ -40,9 +41,9 @@ public class ReceiptPrintJob {
             receiptPrint.addFeed(2);
 
             // Add metadata
-            receiptPrint.addText(receipt.getDate().toString());
-            receiptPrint.addText(receipt.getTime().toString());
-            receiptPrint.addText("Cashier: " + receipt.getCashier().toString());
+            receiptPrint.addText(receipt.getDate());
+            receiptPrint.addText(receipt.getTime());
+            receiptPrint.addText("Cashier: " + receipt.getCashier());
 
             // Add empty space
             receiptPrint.addFeed(2);
@@ -51,7 +52,8 @@ public class ReceiptPrintJob {
             try{
                 addItemsToReceiptTest(receiptPrint, receipt);
             } catch (Exception e) {
-                e.printStackTrace();
+                Logger l = Logger.getInstance();
+                l.log(e.getMessage());
             }
 
             // Add empty space
@@ -85,7 +87,8 @@ public class ReceiptPrintJob {
             posPrinter.print(receiptPrint, printerService);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger l = Logger.getInstance();
+            l.log(e.getMessage());
         }
     }
 
@@ -106,8 +109,7 @@ public class ReceiptPrintJob {
 
     private double calculateTaxForPosition(ItemPosition itemPosition) {
         double netto = itemPosition.getItem().getPrice() * itemPosition.getAmount();
-        double tax = netto * (itemPosition.getItem().getTaxRate() / 100);	
-        return tax;
+        return netto * (itemPosition.getItem().getTaxRate() / 100);
     }
 
     private void addItemsToReceiptTest(POSReceipt receiptPrint, Receipt receipt) {

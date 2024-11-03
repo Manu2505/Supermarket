@@ -1,5 +1,7 @@
 package de.group2.supermarket.bonprintextended;
 
+import de.group2.supermarket.entity.logging.Logger;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,7 +59,8 @@ public class POSBarcode implements POSComponent {
         try {
 			output.flush();
 		} catch (IOException e) {
-			e.printStackTrace();
+            Logger l = Logger.getInstance();
+            l.log(e.getMessage());
 		}
         return output.toByteArray();
     }

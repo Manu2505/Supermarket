@@ -7,13 +7,12 @@ import java.util.List;
 
 import de.group2.supermarket.bonprintextended.POS.ErrorCorrection;
 import de.group2.supermarket.bonprintextended.POS.QrCodeSize;
+import de.group2.supermarket.entity.logging.Logger;
 
 public class POSQRCode implements POSComponent {
-    private final String data;
     private final List<byte[]> commands = new ArrayList<>();
 
     public POSQRCode(String data, ErrorCorrection percent15, QrCodeSize medium) {
-        this.data = data;
         commands.add(new byte[]{POS.Command.GS, 0x28, 0x6B, 0x04, 0x00, 0x31, 0x41, 0x32, 0x00});
         commands.add(new byte[]{POS.Command.GS, 0x28, 0x6B, 0x03, 0x00, 0x31, 0x43, (byte) medium.getValue()});
         commands.add(new byte[]{POS.Command.GS, 0x28, 0x6B, 0x03, 0x00, 0x31, 0x45, (byte) percent15.getValue()});
@@ -32,7 +31,8 @@ public class POSQRCode implements POSComponent {
         try {
 			output.flush();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger l = Logger.getInstance();
+            l.log(e.getMessage());
 		}
         return output.toByteArray();
     }

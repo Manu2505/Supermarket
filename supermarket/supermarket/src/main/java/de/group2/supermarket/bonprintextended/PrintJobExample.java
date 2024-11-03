@@ -1,5 +1,7 @@
 package de.group2.supermarket.bonprintextended;
 
+import de.group2.supermarket.entity.logging.Logger;
+
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 
@@ -36,7 +38,7 @@ public class PrintJobExample {
             receipt.addBarcode(barcode);
             
             POSQRCode qrcode = new POSQRCode("www.google.com", POS.ErrorCorrection.PERCENT_15, POS.QrCodeSize.EXTRA_LARGE);
-            receipt.addQRCode(qrcode);;
+            receipt.addQRCode(qrcode);
             
             // Set a footer for the receipt
             receipt.setFooterLine("Thank you for shopping!");
@@ -45,7 +47,8 @@ public class PrintJobExample {
             posPrinter.print(receipt, printerService);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger l = Logger.getInstance();
+            l.log(e.getMessage());
         }
     }
 

@@ -1,6 +1,9 @@
 package de.group2.supermarket.bonprintextended;
 
+import de.group2.supermarket.entity.logging.Logger;
+
 import java.io.ByteArrayInputStream;
+import java.util.Arrays;
 import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
@@ -14,9 +17,8 @@ public class POSPrinter implements SupermarketPrinter{
         // Convert the POSDocument to byte array for printing
     	
     	byte[] emptyBufferSpace = new byte[100];  // You can increase the size of the buffer space
-        for (int i = 0; i < emptyBufferSpace.length; i++) {
-            emptyBufferSpace[i] = ' ';  // Fill with spaces or use '\n' for line feeds
-        }
+        // Fill with spaces or use '\n' for line feeds
+        Arrays.fill(emptyBufferSpace, (byte) ' ');
         
         byte[] printData = concat(
             new byte[]{POS.Command.ESC, POS.Command.INIT},   // Printer initialization command
@@ -31,10 +33,9 @@ public class POSPrinter implements SupermarketPrinter{
 
         try {
             job.print(doc, null);
-            System.out.println("Print job sent to printer");
         } catch (PrintException e) {
-            System.err.println("Error during printing: " + e.getMessage());
-            e.printStackTrace();
+            Logger l = Logger.getInstance();
+            l.log("Error during printing: " + e.getMessage());
         }
     }
 

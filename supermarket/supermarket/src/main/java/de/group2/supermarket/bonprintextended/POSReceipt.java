@@ -3,26 +3,20 @@ package de.group2.supermarket.bonprintextended;
 import de.group2.supermarket.entity.itemPosition.ItemPosition;
 
 public class POSReceipt extends POSDocument {
-    private String title;
-    private String address;
-    private String phone;
 
     public void setTitle(String title) {
-        this.title = title;
         addStyle(POSStyle.BOLD);
         addStyle(POSStyle.BIG);
-        addComponent(() -> (title + "\n").getBytes());
+        addComponent((title + "\n")::getBytes);
         resetStyle();
     }
 
     public void setAddress(String address) {
-        this.address = address;
-        addComponent(() -> (address + "\n").getBytes());
+        addComponent((address + "\n")::getBytes);
     }
 
     public void setPhone(String phone) {
-        this.phone = phone;
-        addComponent(() -> (phone + "\n").getBytes());
+        addComponent((phone + "\n")::getBytes);
     }
 
     public void addItem(String itemName, double price) {
@@ -42,11 +36,7 @@ public class POSReceipt extends POSDocument {
     }
 
     public void setFooterLine(String footer) {
-        addComponent(() -> (footer + "\n\n").getBytes());
-    }
-
-    public void addBarcode(POSBarcode barcode) {
-        addComponent(barcode);
+        addComponent((footer + "\n\n")::getBytes);
     }
 
     public void setTax(double tax) {

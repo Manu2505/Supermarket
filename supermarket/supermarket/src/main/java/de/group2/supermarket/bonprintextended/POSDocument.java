@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class POSDocument {
-    private List<POSComponent> components = new ArrayList<>();
-    private List<POSStyle> currentStyles = new ArrayList<>();
+    private final List<POSComponent> components = new ArrayList<>();
+    private final List<POSStyle> currentStyles = new ArrayList<>();
 
     public void addComponent(POSComponent component) {
         components.add(component);
@@ -13,7 +13,7 @@ public class POSDocument {
 
     public void addFeed(int lines) {
         for (int i = 0; i < lines; i++) {
-            addComponent(() -> "\n".getBytes());
+            addComponent("\n"::getBytes);
         }
     }
 
@@ -26,13 +26,13 @@ public class POSDocument {
     }
 
     public void addText(String text) {
-        addComponent(() -> (text + "\n").getBytes());
+        addComponent((text + "\n")::getBytes);
     }
 
     public void addHeading(String heading) {
         addStyle(POSStyle.BOLD);
         addStyle(POSStyle.BIG);
-        addComponent(() -> (heading + "\n").getBytes());
+        addComponent((heading + "\n")::getBytes);
         resetStyle();
     }
 

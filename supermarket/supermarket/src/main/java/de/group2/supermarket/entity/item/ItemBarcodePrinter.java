@@ -4,6 +4,7 @@ import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 
 import de.group2.supermarket.bonprintextended.*;
+import de.group2.supermarket.entity.logging.Logger;
 
 public class ItemBarcodePrinter {
 
@@ -42,7 +43,8 @@ public class ItemBarcodePrinter {
             posPrinter.print(receipt, printerService);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger l = Logger.getInstance();
+            l.log(e.getMessage());
         }
     }
 
