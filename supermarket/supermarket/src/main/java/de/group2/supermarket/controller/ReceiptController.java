@@ -37,6 +37,8 @@ public class ReceiptController {
             .setCashier(receiptIn.getCashier())
             .setItemList(receiptIn.getItemList())
             .build();
+            ReceiptPrintJob receiptPrintJob = new ReceiptPrintJob();
+            receiptPrintJob.printReceipt(receipt);
         
         logger.log("Quittung hinzugefügt: " + receipt.getId());
         return new ResponseEntity<Object>(receiptRepository.save(receipt), HttpStatus.CREATED);
