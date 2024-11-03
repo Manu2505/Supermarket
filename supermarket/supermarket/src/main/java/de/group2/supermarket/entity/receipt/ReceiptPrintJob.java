@@ -22,7 +22,7 @@ public class ReceiptPrintJob {
 
 
     public void printReceipt(ItemList itemList) {  
-        Receipt receipt = new Receipt("Hello", "this is the time", "Bob", itemList);
+        Receipt receipt = new Receipt.ReceiptBuilder("Hello", "this is the time", "Bob", itemList).build();
         try {
             // Find the printer by name
             //PrintService printerService = findPrintService("OLIVETTI PRT80");
