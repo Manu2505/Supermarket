@@ -21,6 +21,11 @@ public class POSBarcode implements POSComponent {
         this.type = type;
     }
 
+    public POSBarcode(String data, POS.BarcodeType type) {
+        this.data = data;
+        this.type = type;
+    }
+
     public void setHeight(int height) {
         commands.add(new byte[]{POS.Command.GS, POS.Command.SET_BARCODE_HEIGHT, (byte) height});
     }
