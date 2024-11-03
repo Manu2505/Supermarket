@@ -14,7 +14,7 @@ public class ItemFactory {
 
     // Methode zur Validierung der Eingabewerte
     private static void validateInputs(String name, String category, double price) {
-        if (name == null || name.isEmpty() || name.length() < 2) {
+        if (name == null || name.length() < 2) {
             throw new IllegalArgumentException("Name darf nicht null oder leer sein. Name muss mindestens 2 Buchstaben lang sein");
         }
         if (category == null || category.isEmpty()) {
