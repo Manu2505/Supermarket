@@ -56,6 +56,16 @@ public class ItemController {
         }
     }
 
+    @GetMapping("/printLabel/{id}") // localhost:8080/item/printLabel/"some id"
+    public ResponseEntity<Object> printLabelById(@PathVariable UUID id){
+        try {
+            ItemBarcodePrinter.printItemBarcode(itemRepository.findById(id).get());
+            return new ResponseEntity<Object>(itemRepository.findById(id), HttpStatus.OK);
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<Object>("Item with the id " + id + " could not be found", HttpStatus.NOT_FOUND); // Recap: 404 means "Not found"
+        }
+    } 
+
     @GetMapping("/category/{category}") // localhost:8080/item/category/"some category"
     public ResponseEntity<Object> getByCategory(@PathVariable String category){
         try {
