@@ -94,11 +94,11 @@ public class ReceiptPrintJob {
     }
 
         // Receipt with the ItemPositions which doesnt work, because its probably too long
-    private void addItemsToReceipt(POSReceipt receiptPrint, Receipt receipt) {
+    /* private void addItemsToReceipt(POSReceipt receiptPrint, Receipt receipt) {
         for (ItemPosition itemPosition : receipt.getItemList().getItemPositions()) {
             receiptPrint.addItem(itemPosition);
         }
-    }
+    } */
 
     private double addTotalTax(POSReceipt receiptPrint, Receipt receipt) {
         double totalTax = 0;
