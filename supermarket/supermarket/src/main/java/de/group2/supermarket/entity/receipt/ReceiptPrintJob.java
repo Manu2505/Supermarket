@@ -74,10 +74,10 @@ public class ReceiptPrintJob {
             */
 
             // Create and add a barcode to the receipt
-            POSBarcode barcode = new POSBarcode(receipt.getItemList().getId(), POS.BarcodeType.CODE128);
+            /* POSBarcode barcode = new POSBarcode(receipt.getItemList().getId(), POS.BarcodeType.CODE128);
             barcode.setHeight(162);
             barcode.setWidth(POS.BarWidth.DEFAULT);
-            receiptPrint.addBarcode(barcode);
+            receiptPrint.addBarcode(barcode); */
 
             POSQRCode qrcode = new POSQRCode("www.woistmanuel.de", POS.ErrorCorrection.PERCENT_15, POS.QrCodeSize.EXTRA_LARGE);
             receiptPrint.addQRCode(qrcode);
@@ -118,7 +118,7 @@ public class ReceiptPrintJob {
         for (ItemPosition itemPosition : receipt.getItemList().getItemPositions()) {
             receiptPrint.addText(itemPosition.getItem().getName());
             //receiptPrint.addItem(itemPosition.getItem().getName(), (itemPosition.getItem().getPrice() * ((100 + itemPosition.getItem().getTaxRate())/100)));
-            receiptPrint.addItem("Amount: " + itemPosition.getAmount(), (itemPosition.getItem().getPrice() * ((100 + itemPosition.getItem().getTaxRate())/100)));
+            receiptPrint.addItem("Amount: " + itemPosition.getAmount(), (itemPosition.getItem().getPrice() * itemPosition.getAmount() * ((100 + itemPosition.getItem().getTaxRate())/100)));
         }
     }
 
