@@ -33,7 +33,7 @@ public class ItemBarcodePrinter {
             // Create and add a barcode to the receipt
             POSBarcode barcode = new POSBarcode(item.getId(), POS.BarcodeType.CODE128);
             barcode.setHeight(162);
-            barcode.setWidth(POS.BarWidth.DEFAULT);
+            barcode.setWidth(POS.BarWidth.THIN);
             receipt.addBarcode(barcode);
             
             /*

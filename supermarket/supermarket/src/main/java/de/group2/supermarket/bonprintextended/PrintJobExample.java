@@ -30,7 +30,7 @@ public class PrintJobExample {
             receipt.addItem("CatMilk", 2.99);
 
             // Create and add a barcode to the receipt
-            POSBarcode barcode = new POSBarcode(4012345678901L, POS.BarcodeType.JAN13_EAN13);
+            POSBarcode barcode = new POSBarcode("57155715", POS.BarcodeType.CODE128);
             barcode.setHeight(162);
             barcode.setWidth(POS.BarWidth.DEFAULT);
             receipt.addBarcode(barcode);
