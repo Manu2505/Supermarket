@@ -17,20 +17,16 @@ public class LogController {
 
     private final Logger logger = Logger.getInstance(); // Logger-Instanz
 
-    // Eine Liste, um die Log-Nachrichten zu speichern
-    private List<String> logMessages = new ArrayList<>();
-
     // GET-Anfrage für Test-Logging und um alle Logs zurückzugeben
     @GetMapping("")
     public List<String> getLogs() {
-        return logMessages; // Gibt die gespeicherten Log-Nachrichten zurück
+        return logger.getLogMessages(); // Gibt die gespeicherten Log-Nachrichten zurück
     }
     
     // POST-Anfrage für das Logging von Nachrichten
     @PostMapping("")
     public String logMessage(@RequestBody LogRequest logRequest) {
         logger.log(logRequest.getMessage()); // Protokollierung der Nachricht mit der Logger-Instanz
-        logMessages.add(logRequest.getMessage()); // Speichern der Nachricht in der Liste
         return "Log-Nachricht erfolgreich protokolliert.";
     }
 
