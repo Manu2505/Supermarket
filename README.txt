@@ -17,7 +17,7 @@ The backend includes REST controllers and entitys as well as repositories to ena
 MongoDB as the database provides the possibility to store datapoints as files.
 
 The requirments from the customer are the following:
-1. The technical setup includes a printer for the receipts and labels and a scanner to scann the labels.
+1. The technical setup includes a printer for the receipts and labels and a scanner to scan the labels.
 2. The project should be finished until the 04.11.2024
 3. There are no costs and ressources allocated
 
@@ -25,6 +25,11 @@ A user story map in included with a picture.
 There are no non-functional requirments regarding performance, security or else.
 Functional requirments are the scanning of items, the printing of a receipt, calcultaing the total price and providing the payment options cash and card.
 
+Our 3 (+1) design pattern:
+1. Factory, when creating an item (Itemfactory.java)
+2. Builder, when creating a receipt (Receipt.java)
+3. Singleton, for all Log-Messages (Logger.java)
+4. Strategy, for POS-Printer (SupermarketPrinter.java)
 
 Further graphs and design mock ups are not required.
 
