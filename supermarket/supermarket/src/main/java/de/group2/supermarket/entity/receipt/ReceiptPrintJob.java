@@ -3,18 +3,15 @@ package de.group2.supermarket.entity.receipt;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 
-import de.group2.supermarket.bonprintextended.*;
+import de.group2.supermarket.bonprintextended.POS;
+import de.group2.supermarket.bonprintextended.POSPrinter;
+import de.group2.supermarket.bonprintextended.POSQRCode;
+import de.group2.supermarket.bonprintextended.POSReceipt;
+import de.group2.supermarket.bonprintextended.SupermarketPrinter;
 import de.group2.supermarket.entity.itemPosition.ItemPosition;
 import de.group2.supermarket.entity.logging.Logger;
 
 public class ReceiptPrintJob {
-
-    /*
-    public static void main(String[] args) {
-        ReceiptPrintJob receiptPrintJob = new ReceiptPrintJob();
-        receiptPrintJob.printReceipt(new ItemList(Arrays.asList(new ItemPosition(new Item("Test", "category", 0.19, true), 1)), 1.0));
-    }   
-    */
 
     public void printReceipt(Receipt receipt) {  
         
@@ -64,18 +61,7 @@ public class ReceiptPrintJob {
             // Add Total
             receiptPrint.setTotal(receipt.getItemList().getTotalPrice());
 
-            /*Create and add a barcode to the receiptPrint
-            POSBarcode barcode = new POSBarcode(4012345678901L, POS.BarcodeType.JAN13_EAN13);
-            barcode.setHeight(162);
-            barcode.setWidth(POS.BarWidth.DEFAULT);
-            receiptPrint.addBarcode(barcode);
-            */
-
-            // Create and add a barcode to the receipt
-            /* POSBarcode barcode = new POSBarcode(receipt.getItemList().getId(), POS.BarcodeType.CODE128);
-            barcode.setHeight(162);
-            barcode.setWidth(POS.BarWidth.DEFAULT);
-            receiptPrint.addBarcode(barcode); */
+        
 
             POSQRCode qrcode = new POSQRCode("www.woistmanuel.de", POS.ErrorCorrection.PERCENT_15, POS.QrCodeSize.EXTRA_LARGE);
             receiptPrint.addQRCode(qrcode);

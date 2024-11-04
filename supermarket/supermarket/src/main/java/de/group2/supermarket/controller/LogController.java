@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.group2.supermarket.entity.logging.Logger; // Importiere deine Logger-Klasse
+import de.group2.supermarket.entity.logging.Logger; 
 
 @RestController
 @RequestMapping("/log") // Basis-URL für die Logging-Anfragen
@@ -32,7 +32,7 @@ public class LogController {
     public static class LogRequest {
         private String message;
 
-        // Getter und Setter
+        
         public String getMessage() {
             return message;
         }

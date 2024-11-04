@@ -20,8 +20,7 @@ import de.group2.supermarket.entity.item.Item;
 import de.group2.supermarket.entity.item.ItemBarcodePrinter;
 import de.group2.supermarket.entity.item.ItemFactory;
 import de.group2.supermarket.entity.logging.Logger;
-import de.group2.supermarket.repo.ItemRepository; // Importiere deinen Logger
-
+import de.group2.supermarket.repo.ItemRepository; 
 
 @Controller
 @RestController
